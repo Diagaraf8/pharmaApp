@@ -5,6 +5,14 @@
  */
 package pharmacie;
 
+import connectionProvider.ConnectionProvider;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+import patient.AjouterNouveauPatient;
+
 /**
  *
  * @author issaga.gaye
@@ -31,34 +39,23 @@ public class Pharmacie extends javax.swing.JFrame {
         jtxtRef = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtxtRef2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jtxtRef3 = new javax.swing.JTextField();
+        jtxtDose = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtxtRef4 = new javax.swing.JTextField();
+        jtxtLot = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jtxtRef5 = new javax.swing.JTextField();
+        jtxtIssueDate = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jtxtRef6 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jtxtRef7 = new javax.swing.JTextField();
+        jtxtDateExp = new javax.swing.JTextField();
+        jtxtDoseJour = new javax.swing.JLabel();
+        jtxtDoseDay = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jtxtRef8 = new javax.swing.JTextField();
+        jtxtpossibleSideEffets = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jtxtRef9 = new javax.swing.JTextField();
+        jtxtCompInfo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jtxtRef10 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jtxtRef11 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jtxtRef12 = new javax.swing.JTextField();
+        jtxtStrorageAdvice = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jtxtRef13 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jtxtRef14 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jtxtRef15 = new javax.swing.JTextField();
-        jcmbNomTable = new javax.swing.JComboBox<>();
+        jtxtNotice = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -66,126 +63,87 @@ public class Pharmacie extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jNbrTablette = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jcmbNomTable = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Nom Tablette:");
+        jLabel1.setText("Numero Ref:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         jtxtRef.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 210, -1));
+        getContentPane().add(jtxtRef, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 210, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Numero Ref:");
+        jLabel2.setText("Nom Tablette:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Dose (mg):");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
-        jtxtRef2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 210, -1));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("Numero Tablette:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
-
-        jtxtRef3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 210, -1));
+        jtxtDose.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, 210, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("Lot:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
-        jtxtRef4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 210, -1));
+        jtxtLot.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtLot, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, 210, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Date fabrik");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
 
-        jtxtRef5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 210, -1));
+        jtxtIssueDate.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtIssueDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 210, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setText("Date d'exp");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, -1));
 
-        jtxtRef6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 210, -1));
+        jtxtDateExp.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtDateExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 210, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setText("Dose par jour");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, -1));
+        jtxtDoseJour.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jtxtDoseJour.setText("Dose par jour");
+        getContentPane().add(jtxtDoseJour, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, -1));
 
-        jtxtRef7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 210, -1));
+        jtxtDoseDay.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtDoseDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 210, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel9.setText("effet secondaire possible");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, -1, -1));
 
-        jtxtRef8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 50, 210, -1));
+        jtxtpossibleSideEffets.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtpossibleSideEffets, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 50, 210, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel10.setText("infos complémentaires");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, -1, -1));
 
-        jtxtRef9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 90, 210, -1));
+        jtxtCompInfo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtCompInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 90, 210, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setText("conseil de stockage");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, -1, -1));
 
-        jtxtRef10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 130, 210, -1));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel12.setText("Administration");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, -1, -1));
-
-        jtxtRef11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 170, 210, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel13.setText("Numero Ref");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 220, -1, -1));
-
-        jtxtRef12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 210, 210, -1));
+        jtxtStrorageAdvice.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtStrorageAdvice, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 130, 210, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setText("Notice");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, -1, -1));
 
-        jtxtRef13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 250, 210, -1));
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel15.setText("Id patient");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 300, -1, -1));
-
-        jtxtRef14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 290, 210, -1));
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel16.setText("Numero docteur");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, -1, -1));
-
-        jtxtRef15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(jtxtRef15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, 210, -1));
-
-        jcmbNomTable.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jcmbNomTable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ibuprofen", "Ca-C1000", "Paracetamol", " " }));
-        getContentPane().add(jcmbNomTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 210, 30));
+        jtxtNotice.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jtxtNotice, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 250, 210, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,41 +158,130 @@ public class Pharmacie extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
             }
         ));
+        jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTable1ComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 1320, 340));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1350, 320));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 120, 30));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton1.setText("Ajouter");
+        jButton1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jButton1ComponentShown(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 160, 40));
 
-        jButton2.setText("jButton2");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 20, 120, 30));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton2.setText("Modifier");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, 40));
 
-        jButton3.setText("jButton3");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 20, 120, 30));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton3.setText("Suprimer");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 160, 40));
 
-        jButton4.setText("jButton4");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(539, 20, 120, 30));
-
-        jButton5.setText("jButton5");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 20, 120, 30));
-
-        jButton6.setText("jButton6");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(889, 20, 120, 30));
-
-        jButton7.setText("jButton7");
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1049, 20, 120, 30));
-
-        jButton8.setText("jButton8");
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 20, 120, 30));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton4.setText("Quitter");
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 20, 160, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 1330, 80));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setText("Nombre de Tablette");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
+
+        jNbrTablette.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jNbrTablette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNbrTabletteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jNbrTablette, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 180, 210, 40));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel8.setText("Stock");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 90, -1));
+
+        jcmbNomTable.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        getContentPane().add(jcmbNomTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 210, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jNbrTabletteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNbrTabletteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNbrTabletteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nomTablette = (String) jcmbNomTable.getText();
+        String refference = jtxtRef.getText();
+        String dose = jtxtDose.getText();
+        String lot = jtxtLot.getText();
+        String dateFrbric = jtxtIssueDate.getText();
+        String dateExp = jtxtDateExp.getText();
+        String doseJour = jtxtDoseDay.getText();
+        String effetSecondaire = jtxtpossibleSideEffets.getText();
+        String infoCompl = jtxtCompInfo.getText();
+        String conseilStockage = jtxtStrorageAdvice.getText();
+        String notice = jtxtNotice.getText();
+        String nombreTablette = jNbrTablette.getText();
+        
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("insert into medicament values('"+nomTablette+"', '"+refference+"', '"+dose+"', '"+lot+"',"
+                    + " '"+dateFrbric+"', '"+dateExp+"', '"+doseJour+"', '"+effetSecondaire+"', '"+infoCompl+"', '"+conseilStockage+"', '"+notice+"', '"+nombreTablette+"')");
+            JOptionPane.showMessageDialog(null, "Actualiser avec succée!!");
+            setVisible(true);
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton1ComponentShown
+        String nomTablette =jcmbNomTable.getText();
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from medicament where medicament.nomTablette=medicament.nomTablette ");
+            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));          
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
+    }//GEN-LAST:event_jButton1ComponentShown
+
+    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
+        String nomTablette =jcmbNomTable.getText();
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from medicament where medicament.nomTablette=medicament.nomTablette ");
+            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));          
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
+        
+    
+    }//GEN-LAST:event_jTable1ComponentShown
 
     /**
      * @param args the command line arguments
@@ -276,18 +323,10 @@ public class Pharmacie extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -296,24 +335,21 @@ public class Pharmacie extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jNbrTablette;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JComboBox<String> jcmbNomTable;
+    private javax.swing.JTextField jcmbNomTable;
+    private javax.swing.JTextField jtxtCompInfo;
+    private javax.swing.JTextField jtxtDateExp;
+    private javax.swing.JTextField jtxtDose;
+    private javax.swing.JTextField jtxtDoseDay;
+    private javax.swing.JLabel jtxtDoseJour;
+    private javax.swing.JTextField jtxtIssueDate;
+    private javax.swing.JTextField jtxtLot;
+    private javax.swing.JTextField jtxtNotice;
     private javax.swing.JTextField jtxtRef;
-    private javax.swing.JTextField jtxtRef10;
-    private javax.swing.JTextField jtxtRef11;
-    private javax.swing.JTextField jtxtRef12;
-    private javax.swing.JTextField jtxtRef13;
-    private javax.swing.JTextField jtxtRef14;
-    private javax.swing.JTextField jtxtRef15;
-    private javax.swing.JTextField jtxtRef2;
-    private javax.swing.JTextField jtxtRef3;
-    private javax.swing.JTextField jtxtRef4;
-    private javax.swing.JTextField jtxtRef5;
-    private javax.swing.JTextField jtxtRef6;
-    private javax.swing.JTextField jtxtRef7;
-    private javax.swing.JTextField jtxtRef8;
-    private javax.swing.JTextField jtxtRef9;
+    private javax.swing.JTextField jtxtStrorageAdvice;
+    private javax.swing.JTextField jtxtpossibleSideEffets;
     // End of variables declaration//GEN-END:variables
 }

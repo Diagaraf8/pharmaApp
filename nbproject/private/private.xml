@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/login/Login.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/patient/Gestion_RV.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/connectionProvider/ConnectionProvider.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/pharmacie/Facturation.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/client/EspaceClient.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/patient/AjouterNouveauPatient.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/patient/Patient.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/doctor/DiagnosticPatient.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/login/Accueil.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/patient/HistoriqueCompletDuPatient.java</file>
             <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/pharmacie/Pharmacie.java</file>
+            <file>file:/C:/Users/issaga.gaye/Documents/NetBeansProjects/FarmaGestion/src/inscription/Inscription.java</file>
         </group>
     </open-files>
 </project-private>
