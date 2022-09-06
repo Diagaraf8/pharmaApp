@@ -5,19 +5,65 @@
  */
 package client;
 
+import connectionProvider.ConnectionProvider;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author issaga.gaye
  */
 public class EspaceClient extends javax.swing.JFrame {
-
+    
+    int panier=0;
     /**
      * Creates new form EspaceClient
      */
+    
+    
     public EspaceClient() {
         initComponents();
+        AfficherTableaux();
     }
-
+    
+    public void AfficherTableauxComande(){
+        //String nomTablette = (String) jcmbNomTable.getText();
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from commandes ");
+            //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTabListCom.setModel(DbUtils.resultSetToTableModel(rs)); 
+            //model.addRow(new Object[]{rs});
+             
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
+    }
+    
+    
+    public void AfficherTableaux(){
+        //DefaultTableModel model = new DefaultTableModel();
+       
+       try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from medicament ");
+            //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs)); 
+            //model.addRow(new Object[]{rs});
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +73,284 @@ public class EspaceClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jcmbNomTable = new javax.swing.JTextField();
+        nombreTablette = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTxtPanier = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jBtnAjout = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTxtNom = new javax.swing.JTextField();
+        jTxtAdress = new javax.swing.JTextField();
+        jTxtEmail = new javax.swing.JTextField();
+        jTxtTel = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jBtnEnregistrer = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTabListCom = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jBtnAnnComm = new javax.swing.JButton();
+        jBtnSuprimmer = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1350, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 1350, 220));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Payer une ordonnance ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 13, -1, -1));
+
+        jcmbNomTable.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jcmbNomTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmbNomTableActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jcmbNomTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 210, 40));
+
+        nombreTablette.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        getContentPane().add(nombreTablette, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 210, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("Medicament disponible ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 540, 302, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Panier :");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 56, -1, -1));
+
+        jTxtPanier.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTxtPanier.setForeground(new java.awt.Color(255, 0, 0));
+        jTxtPanier.setText("0");
+        getContentPane().add(jTxtPanier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 53, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setText("Nom Tablette");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setText("Nombre de Tablette");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        jBtnAjout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBtnAjout.setText("Ajouter au panier");
+        jBtnAjout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAjoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAjout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, 30));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setText("Nom complet ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, 20));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setText("Adress");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 20));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setText("Email");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 20));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setText("Téléphone");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, 20));
+        jPanel1.add(jTxtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 240, 40));
+        jPanel1.add(jTxtAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 240, 40));
+        jPanel1.add(jTxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 240, 40));
+        jPanel1.add(jTxtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 240, 40));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel10.setText("Entrez vos informations");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+
+        jBtnEnregistrer.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jBtnEnregistrer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.jpg"))); // NOI18N
+        jBtnEnregistrer.setText("Enrégistrer");
+        jBtnEnregistrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEnregistrerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnEnregistrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 610, 370));
+
+        jTabListCom.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTabListCom);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 720, 100));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setText("Votre liste de commande");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
+
+        jBtnAnnComm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBtnAnnComm.setText("Annuller commande");
+        jBtnAnnComm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAnnCommActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnAnnComm, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, -1, 30));
+
+        jBtnSuprimmer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBtnSuprimmer.setText("Suprimer");
+        jBtnSuprimmer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSuprimmerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnSuprimmer, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    private void jcmbNomTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbNomTableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcmbNomTableActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //Activation et affichage de la selection de ligne du tbleau
+        DefaultTableModel enreTable = (DefaultTableModel)jTable1.getModel();
+        int selectLigne = jTable1.getSelectedRow();
+        jcmbNomTable.setText(enreTable.getValueAt(selectLigne, 0).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jBtnAjoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjoutActionPerformed
+        // Ajout à la liste de commande
+        String nomTablette = (String) jcmbNomTable.getText();
+        String nombreTablette = this.nombreTablette.getText();
+        
+        
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("insert into commandes values('"+nomTablette+"', '"+nombreTablette+"')");
+            JOptionPane.showMessageDialog(null, "Medicament ajouté avec succée!!");
+            setVisible(true);
+            AfficherTableauxComande();
+            panier = panier+1;
+            jTxtPanier.setText(String.valueOf(panier));
+            
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jBtnAjoutActionPerformed
+
+    private void jBtnSuprimmerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuprimmerActionPerformed
+        // TODO add your handling code here:
+        // Supression de Medicament 
+        String nomTablette = (String) jcmbNomTable.getText();
+        
+        
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("DELETE FROM commandes WHERE nomTablette='"+nomTablette+"'");
+            JOptionPane.showMessageDialog(null, "Suppression réussi avec succé !!");
+            AfficherTableauxComande();
+            panier = panier-1;
+            jTxtPanier.setText(String.valueOf(panier));
+            setVisible(true);
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jBtnSuprimmerActionPerformed
+
+    private void jBtnAnnCommActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAnnCommActionPerformed
+        JFrame frame = new JFrame("Exit");
+        if(JOptionPane.showConfirmDialog(frame, "Confirmez si vous voulez annuler votre ", "Annulation de commande", 
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            
+            try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("DELETE FROM commandes ");
+            JOptionPane.showMessageDialog(null, "Suppression réussi avec succé !!");
+            panier = 0;
+            jTxtPanier.setText(String.valueOf(panier));
+            setVisible(true);
+            AfficherTableauxComande();
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+        }
+        
+        
+        
+    }//GEN-LAST:event_jBtnAnnCommActionPerformed
+
+    private void jBtnEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnregistrerActionPerformed
+        String nom =jTxtNom.getText();
+        String adress = jTxtAdress.getText();
+        String email = jTxtEmail.getText();
+        String telephone = jTxtTel.getText();
+        
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("insert into cordonnes values('"+nom+"','"+email+"', '"+telephone+"',"
+                    + " '"+adress+"')");
+            JOptionPane.showMessageDialog(null, "Commande enrégistré avec succée!!");
+            setVisible(true);
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jBtnEnregistrerActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -77,7 +385,35 @@ public class EspaceClient extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAjout;
+    private javax.swing.JButton jBtnAnnComm;
+    private javax.swing.JButton jBtnEnregistrer;
+    private javax.swing.JButton jBtnSuprimmer;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTabListCom;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTxtAdress;
+    private javax.swing.JTextField jTxtEmail;
+    private javax.swing.JTextField jTxtNom;
+    private javax.swing.JTextField jTxtPanier;
+    private javax.swing.JTextField jTxtTel;
+    private javax.swing.JTextField jcmbNomTable;
+    private javax.swing.JTextField nombreTablette;
     // End of variables declaration//GEN-END:variables
 }

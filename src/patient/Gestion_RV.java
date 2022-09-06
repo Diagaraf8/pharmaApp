@@ -125,6 +125,7 @@ public class Gestion_RV extends javax.swing.JFrame {
         jTextField4.setText("JJ-MM-AA   hh:mm");
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 153, 250, -1));
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Santé44.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 500));
 
@@ -143,7 +144,6 @@ public class Gestion_RV extends javax.swing.JFrame {
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
             ResultSet rs = st.executeQuery("select * from rendez_vous where rendez_vous.nom=rendez_vous.nom ");
-            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));          
         }
         catch(Exception e){ 

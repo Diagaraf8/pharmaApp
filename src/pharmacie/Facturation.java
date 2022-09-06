@@ -28,7 +28,25 @@ public class Facturation extends javax.swing.JFrame {
      */
     public Facturation() {
         initComponents();
+        AfficherTableaux();
     }
+    
+    public void AfficherTableaux(){
+        
+       
+       try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from facturation ");
+            //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs)); 
+            //model.addRow(new Object[]{rs});
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +83,9 @@ public class Facturation extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(280, 150));
@@ -174,6 +195,7 @@ public class Facturation extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 102, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/imprimer.png"))); // NOI18N
         jButton1.setText("Imprimer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,16 +206,18 @@ public class Facturation extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 51, 51));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/close.png"))); // NOI18N
         jButton2.setText("Fermer");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 760, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 760, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 204, 102));
+        jButton3.setForeground(new java.awt.Color(51, 51, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.jpg"))); // NOI18N
         jButton3.setText("Enrégistre");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +230,25 @@ public class Facturation extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(51, 102, 255));
         jLabel12.setText("Facturation Après diagnostic");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 380, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 371, 850, 360));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setText("Historique des factures");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 330, 280, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -229,10 +272,6 @@ public class Facturation extends javax.swing.JFrame {
            
        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tableComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tableComponentShown
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableComponentShown
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -290,6 +329,10 @@ public class Facturation extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formComponentShown
 
+    private void tableComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tableComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -332,6 +375,7 @@ public class Facturation extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,6 +386,8 @@ public class Facturation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pharmacie;
 
 import connectionProvider.ConnectionProvider;
@@ -10,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import patient.AjouterNouveauPatient;
 
@@ -19,11 +15,29 @@ import patient.AjouterNouveauPatient;
  */
 public class Pharmacie extends javax.swing.JFrame {
 
+    int q, i, id, deletItem;
     /**
      * Creates new form Pharmacie
      */
     public Pharmacie() {
         initComponents();
+        AfficherTableaux();
+    }
+    
+    public void AfficherTableaux(){
+        //DefaultTableModel model = new DefaultTableModel();
+       
+       try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs = st.executeQuery("select * from medicament ");
+            //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs)); 
+            //model.addRow(new Object[]{rs});
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+        }
     }
 
     /**
@@ -59,9 +73,9 @@ public class Pharmacie extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtnAjouter = new javax.swing.JButton();
+        jBtnModifier = new javax.swing.JButton();
+        jBtnSuprimer = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jNbrTablette = new javax.swing.JTextField();
@@ -158,6 +172,11 @@ public class Pharmacie extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jTable1ComponentShown(evt);
@@ -165,35 +184,50 @@ public class Pharmacie extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1350, 320));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1350, 330));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton1.setText("Ajouter");
-        jButton1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        jBtnAjouter.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jBtnAjouter.setText("Ajouter");
+        jBtnAjouter.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                jButton1ComponentShown(evt);
+                jBtnAjouterComponentShown(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnAjouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnAjouterActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 160, 40));
+        jPanel1.add(jBtnAjouter, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 160, 40));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton2.setText("Modifier");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, 40));
+        jBtnModifier.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jBtnModifier.setText("Modifier");
+        jBtnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModifierActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnModifier, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, 40));
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton3.setText("Suprimer");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 160, 40));
+        jBtnSuprimer.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jBtnSuprimer.setText("Suprimer");
+        jBtnSuprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSuprimerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnSuprimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 160, 40));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton4.setText("Quitter");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 20, 160, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 1330, 80));
@@ -222,15 +256,15 @@ public class Pharmacie extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jNbrTabletteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNbrTabletteActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jNbrTabletteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjouterActionPerformed
         String nomTablette = (String) jcmbNomTable.getText();
         String refference = jtxtRef.getText();
         String dose = jtxtDose.getText();
         String lot = jtxtLot.getText();
-        String dateFrbric = jtxtIssueDate.getText();
+        String dateFarbric = jtxtIssueDate.getText();
         String dateExp = jtxtDateExp.getText();
         String doseJour = jtxtDoseDay.getText();
         String effetSecondaire = jtxtpossibleSideEffets.getText();
@@ -243,46 +277,116 @@ public class Pharmacie extends javax.swing.JFrame {
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
             st.executeUpdate("insert into medicament values('"+nomTablette+"', '"+refference+"', '"+dose+"', '"+lot+"',"
-                    + " '"+dateFrbric+"', '"+dateExp+"', '"+doseJour+"', '"+effetSecondaire+"', '"+infoCompl+"', '"+conseilStockage+"', '"+notice+"', '"+nombreTablette+"')");
-            JOptionPane.showMessageDialog(null, "Actualiser avec succée!!");
+                    + " '"+dateFarbric+"', '"+dateExp+"', '"+doseJour+"', '"+effetSecondaire+"', '"+infoCompl+"', '"+conseilStockage+"', '"+notice+"', '"+nombreTablette+"')");
+            JOptionPane.showMessageDialog(null, "Medicament ajouté avec succée!!");
             setVisible(true);
+            AfficherTableaux();
             
         }
         catch(Exception e){ 
             JOptionPane.showMessageDialog(this, e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnAjouterActionPerformed
 
-    private void jButton1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton1ComponentShown
-        String nomTablette =jcmbNomTable.getText();
-        try{
-            Connection con=ConnectionProvider.getCon();
-            Statement st=con.createStatement();
-            ResultSet rs = st.executeQuery("select * from medicament where medicament.nomTablette=medicament.nomTablette ");
-            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));          
-        }
-        catch(Exception e){ 
-            JOptionPane.showMessageDialog(null, "Erreur de connexion");
-        }
-    }//GEN-LAST:event_jButton1ComponentShown
+    private void jBtnAjouterComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jBtnAjouterComponentShown
+
+    }//GEN-LAST:event_jBtnAjouterComponentShown
 
     private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
-        String nomTablette =jcmbNomTable.getText();
+     
+    }//GEN-LAST:event_jTable1ComponentShown
+
+    private void jBtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModifierActionPerformed
+        // Modification
+        
+        String nomTablette = (String) jcmbNomTable.getText();
+        String refference = jtxtRef.getText();
+        String dose = jtxtDose.getText();
+        String lot = jtxtLot.getText();
+        String dateFarbric = jtxtIssueDate.getText();
+        String dateExp = jtxtDateExp.getText();
+        String doseJour = jtxtDoseDay.getText();
+        String effetSecondaire = jtxtpossibleSideEffets.getText();
+        String infoCompl = jtxtCompInfo.getText();
+        String conseilStockage = jtxtStrorageAdvice.getText();
+        String notice = jtxtNotice.getText();
+        String nombreTablette = jNbrTablette.getText();
+        
+ 
         try{
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
-            ResultSet rs = st.executeQuery("select * from medicament where medicament.nomTablette=medicament.nomTablette ");
-            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));          
+            st.executeUpdate("update medicament set refference='"+refference+"', dose='"+dose+"', lot='"+lot+"', dateFarbric='"+dateFarbric+"', "
+                    + "dateExp='"+dateExp+"', doseJour='"+doseJour+"', effetSecondaire='"+effetSecondaire+"', infoCompl='"+infoCompl+"', conseilStockage='"+conseilStockage+"', "
+                            + "notice='"+notice+"', nombreTablette='"+nombreTablette+"' where nomTablette='"+nomTablette+"' ");
+            JOptionPane.showMessageDialog(null, "Les données sont modifiées avec succé !!");
+            setVisible(false);
+            new Pharmacie().setVisible(true);
+            AfficherTableaux();
+            
         }
         catch(Exception e){ 
-            JOptionPane.showMessageDialog(null, "Erreur de connexion");
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jBtnModifierActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Affichage de la ligne du tableau au niveau des input
+        DefaultTableModel enreTable = (DefaultTableModel)jTable1.getModel();
+        int selectLigne = jTable1.getSelectedRow();
+        jcmbNomTable.setText(enreTable.getValueAt(selectLigne, 0).toString());
+        jtxtRef.setText(enreTable.getValueAt(selectLigne, 1).toString());
+        jtxtDose.setText(enreTable.getValueAt(selectLigne, 2).toString());
+        jtxtLot.setText(enreTable.getValueAt(selectLigne, 3).toString());
+        jtxtIssueDate.setText(enreTable.getValueAt(selectLigne, 4).toString());
+        jtxtDateExp.setText(enreTable.getValueAt(selectLigne, 5).toString());
+        jtxtDoseDay.setText(enreTable.getValueAt(selectLigne, 6).toString());
+        jtxtpossibleSideEffets.setText(enreTable.getValueAt(selectLigne, 7).toString());
+        jtxtCompInfo.setText(enreTable.getValueAt(selectLigne, 8).toString());
+        jtxtStrorageAdvice.setText(enreTable.getValueAt(selectLigne, 9).toString());
+        jtxtNotice.setText(enreTable.getValueAt(selectLigne, 10).toString());
+        jNbrTablette.setText(enreTable.getValueAt(selectLigne, 11).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jBtnSuprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuprimerActionPerformed
+        // Supression de Medicament 
+        String nomTablette = (String) jcmbNomTable.getText();
+        
+        
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("DELETE FROM medicament WHERE nomTablette='"+nomTablette+"'");
+            JOptionPane.showMessageDialog(null, "Suppression réussi avec succé !!");
+            setVisible(false);
+            new Pharmacie().setVisible(true);
+            AfficherTableaux();
+            
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
         }
         
-    
-    }//GEN-LAST:event_jTable1ComponentShown
+    }//GEN-LAST:event_jBtnSuprimerActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    
+    public void updateDB(){
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.prepareStatement("select from medicament");
+            st.executeUpdate(" ");
+            JOptionPane.showMessageDialog(null, "Les données sont modifiées avec succé !!");
+            setVisible(false);
+            new Pharmacie().setVisible(true);
+        }
+        catch(Exception e){ 
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -319,9 +423,9 @@ public class Pharmacie extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jBtnAjouter;
+    private javax.swing.JButton jBtnModifier;
+    private javax.swing.JButton jBtnSuprimer;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
