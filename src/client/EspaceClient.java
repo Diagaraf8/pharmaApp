@@ -33,10 +33,11 @@ public class EspaceClient extends javax.swing.JFrame {
     
     public void AfficherTableauxComande(){
         //String nomTablette = (String) jcmbNomTable.getText();
+        String nomTablette = (String) jcmbNomTable.getText();
         try{
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
-            ResultSet rs = st.executeQuery("select * from commandes ");
+            ResultSet rs = st.executeQuery("select * from commandes");
             //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
             jTabListCom.setModel(DbUtils.resultSetToTableModel(rs)); 
             //model.addRow(new Object[]{rs});

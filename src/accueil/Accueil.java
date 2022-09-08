@@ -52,7 +52,7 @@ public class Accueil extends javax.swing.JFrame {
         jbtnCancel = new javax.swing.JButton();
         jtypeUser = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jBtnDoctor = new javax.swing.JButton();
+        jBtnHistoricComm = new javax.swing.JButton();
         jBtnEspaceAgent = new javax.swing.JButton();
         jBtnEspaceClient = new javax.swing.JButton();
         jBtnHelp = new javax.swing.JButton();
@@ -108,7 +108,7 @@ public class Accueil extends javax.swing.JFrame {
                 jbtnExitActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, -1, -1));
+        jPanel1.add(jbtnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         jbtnCancel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jbtnCancel.setText("Annuler");
@@ -127,16 +127,16 @@ public class Accueil extends javax.swing.JFrame {
         jLabel2.setText("Type d'utilisateur");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 210, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 680, 340));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 380, 640, 340));
 
-        jBtnDoctor.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jBtnDoctor.setText("Docteur");
-        jBtnDoctor.addActionListener(new java.awt.event.ActionListener() {
+        jBtnHistoricComm.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jBtnHistoricComm.setText("Historique Commande");
+        jBtnHistoricComm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnDoctorActionPerformed(evt);
+                jBtnHistoricCommActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnDoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 270, 60));
+        getContentPane().add(jBtnHistoricComm, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 300, 60));
 
         jBtnEspaceAgent.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jBtnEspaceAgent.setText("Espace Agent");
@@ -165,9 +165,9 @@ public class Accueil extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Système de gestion de pharmacie");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 4, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 240, 690, 60));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 640, 60));
 
         jBtnRV.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jBtnRV.setText("Rendez-vous");
@@ -203,7 +203,7 @@ public class Accueil extends javax.swing.JFrame {
                 jBtnFacturationActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnFacturation, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 260, 60));
+        getContentPane().add(jBtnFacturation, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 300, 60));
 
         jBtnHistoric.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jBtnHistoric.setText("Historique Patient");
@@ -212,7 +212,7 @@ public class Accueil extends javax.swing.JFrame {
                 jBtnHistoricActionPerformed(evt);
             }
         });
-        getContentPane().add(jBtnHistoric, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 385, 260, 60));
+        getContentPane().add(jBtnHistoric, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 300, 60));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/acc.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1350, 810));
@@ -221,7 +221,7 @@ public class Accueil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       jBtnDoctor.setEnabled(false);
+       jBtnHistoricComm.setEnabled(false);
        jBtnAjouterPatient.setEnabled(false);
        jBtnHelp.setEnabled(false);
        jBtnDignosticPatient.setEnabled(false);
@@ -233,11 +233,6 @@ public class Accueil extends javax.swing.JFrame {
        jBtnHistoric.setEnabled(false);
        
     }//GEN-LAST:event_formWindowActivated
-
-    private void jBtnDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDoctorActionPerformed
-        DiagnosticPatient diagnostic = new DiagnosticPatient();
-        diagnostic.setVisible(true);
-    }//GEN-LAST:event_jBtnDoctorActionPerformed
     private JFrame frame;
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
         frame = new JFrame("Exit");
@@ -263,14 +258,15 @@ public class Accueil extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select * from inscription  where username='"+username+"' AND password='"+password+"'");
             if(rs.next()){
                 jBtnHistoric.setEnabled(true);
+                jBtnHistoricComm.setEnabled(true);
                 if(jtypeUser.getSelectedItem().equals("Agent") || jtypeUser.getSelectedItem().equals("Doctor")){
-                    
+                    jBtnHistoricComm.setEnabled(true);
                     jBtnHelp.setEnabled(true);
                     jBtnEspaceAgent.setEnabled(true);
                     jBtnAjouterPatient.setEnabled(true);
                     jBtnFacturation.setEnabled(true);
                     jBtnRV.setEnabled(true);
-                    jBtnDoctor.setEnabled(true);
+                    
                     jBtnEspaceClient.setEnabled(true);
                     
        
@@ -286,14 +282,14 @@ public class Accueil extends javax.swing.JFrame {
                     jBtnRV.setEnabled(true);
                     
                     jBtnEspaceAgent.setEnabled(false);               
-                    jBtnDoctor.setEnabled(false);
+                    
             }
                 else{
                     jBtnHelp.setEnabled(true);
                     jBtnEspaceAgent.setEnabled(true);
                     jBtnAjouterPatient.setEnabled(true);
                     jBtnRV.setEnabled(true);
-                    jBtnDoctor.setEnabled(true);
+                    
                     jBtnFacturation.setEnabled(true);
                     jBtnEspaceClient.setEnabled(true);
                     
@@ -305,7 +301,7 @@ public class Accueil extends javax.swing.JFrame {
             else{
                 JOptionPane.showMessageDialog(null, "Utilisateur ou mot de passe incorrect.");
                 jBtnHelp.setEnabled(false);
-                jBtnDoctor.setEnabled(false);
+                
                 jBtnEspaceClient.setEnabled(false);
                 
                 jBtnEspaceAgent.setEnabled(false);
@@ -361,6 +357,11 @@ public class Accueil extends javax.swing.JFrame {
         historic.setVisible(true);
     }//GEN-LAST:event_jBtnHistoricActionPerformed
 
+    private void jBtnHistoricCommActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHistoricCommActionPerformed
+        DiagnosticPatient diagnostic = new DiagnosticPatient();
+        diagnostic.setVisible(true);
+    }//GEN-LAST:event_jBtnHistoricCommActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,12 +401,12 @@ public class Accueil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAjouterPatient;
     private javax.swing.JButton jBtnDignosticPatient;
-    private javax.swing.JButton jBtnDoctor;
     private javax.swing.JButton jBtnEspaceAgent;
     private javax.swing.JButton jBtnEspaceClient;
     private javax.swing.JButton jBtnFacturation;
     private javax.swing.JButton jBtnHelp;
     private javax.swing.JButton jBtnHistoric;
+    private javax.swing.JButton jBtnHistoricComm;
     private javax.swing.JButton jBtnRV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
